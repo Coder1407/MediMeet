@@ -1,9 +1,9 @@
-import React from 'react'
+
 
 function Doctors() {
   return (
     <div>
-
+        Doctors Page
     </div>
   )
 }
