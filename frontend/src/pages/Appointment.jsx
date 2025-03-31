@@ -12,7 +12,7 @@ const Appointment = () => {
     const { doctors, currencySymbol, backendUrl, token, getDoctosData } = useContext(AppContext)
     const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 
-    const [docInfo, setDocInfo] = useState(false)
+    const [docInfo, setDocInfo] = useState(null)
     const [docSlots, setDocSlots] = useState([])
     const [slotIndex, setSlotIndex] = useState(0)
     const [slotTime, setSlotTime] = useState('')
@@ -35,7 +35,7 @@ const Appointment = () => {
 
             // getting date with index 
             let currentDate = new Date(today)
-            currentDate.setDate(today.getDate() + i)
+            currentDate.setDate(today.getDate() + i) // get future 7 days from now
 
             // setting end time of the date with index
             let endTime = new Date()
@@ -44,6 +44,7 @@ const Appointment = () => {
 
             // setting hours 
             if (today.getDate() === currentDate.getDate()) {
+                // evaluate hours from current time
                 currentDate.setHours(currentDate.getHours() > 10 ? currentDate.getHours() + 1 : 10)
                 currentDate.setMinutes(currentDate.getMinutes() > 30 ? 30 : 0)
             } else {
@@ -55,6 +56,7 @@ const Appointment = () => {
 
 
             while (currentDate < endTime) {
+                // create slot in every 30 min interval
                 let formattedTime = currentDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
                 // let day = currentDate.getDate()
@@ -122,6 +124,7 @@ const Appointment = () => {
         // if (doctors.length > 0) {
             fetchDocInfo()
         // }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [doctors, docId])
 
     useEffect(() => {

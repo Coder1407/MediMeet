@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AppContext } from '../context/AppContext'
+// eslint-disable-next-line react/prop-types
 const RelatedDoctors = ({ speciality, docId }) => {
 
     const navigate = useNavigate()
@@ -10,7 +11,7 @@ const RelatedDoctors = ({ speciality, docId }) => {
 
     useEffect(() => {
         if (doctors.length > 0 && speciality) {
-            const doctorsData = doctors.filter((doc) => doc.speciality === speciality && doc._id !== docId)
+            const doctorsData = doctors.filter((doc) => doc.speciality === speciality && doc._id !== docId) // display only other doctors than this doctor
             setRelDoc(doctorsData)
         }
     }, [doctors, speciality, docId])
